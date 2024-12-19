@@ -6,7 +6,11 @@ function ExpensesList({ expenses }: { expenses: ExpenseProps[] }) {
     <ol id="expenses-list">
       {expenses.map((expense: ExpenseProps) => (
         <li key={expense.id}>
-          <ExpenseListItem expense={expense} />
+          <ExpenseListItem
+            id={expense.id as string}
+            title={expense.title}
+            amount={+expense.amount}
+          />
         </li>
       ))}
     </ol>

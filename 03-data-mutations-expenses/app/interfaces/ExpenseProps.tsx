@@ -1,6 +1,6 @@
 export default interface ExpenseProps {
-  id: string;
+  id: string | undefined;
   title: string;
   date: string;
-  amount: number;
+  amount: string;
 }
