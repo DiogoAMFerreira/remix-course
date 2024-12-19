@@ -34,3 +34,34 @@ export function validateExpenseInput(input: ExpenseProps) {
     throw validationErrors;
   }
 }
+
+function isValidEmail(value: string) {
+  return value && value.includes("@");
+}
+
+function isValidPassword(value: string) {
+  return value && value.trim().length > 6;
+}
+
+export function validateLoginInput({
+  email,
+  password,
+}: {
+  email: string;
+  password: string;
+}) {
+  let validationErrors: Record<string, string> = {};
+
+  if (!isValidEmail(email)) {
+    validationErrors.email = "Invalid email address";
+  }
+
+  if (!isValidPassword(password)) {
+    validationErrors.password =
+      "Invalid password. Must be longer than 6 characters";
+  }
+
+  if (Object.keys(validationErrors).length > 0) {
+    throw validationErrors;
+  }
+}

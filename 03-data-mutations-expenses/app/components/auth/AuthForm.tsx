@@ -1,4 +1,4 @@
-import { Form, Link, useSearchParams } from "@remix-run/react";
+import { Form, Link, useNavigation, useSearchParams } from "@remix-run/react";
 import { FaLock, FaUserPlus } from "react-icons/fa";
 
 function AuthForm() {
@@ -9,6 +9,9 @@ function AuthForm() {
   const submitBtnText = authMode === "login" ? "Login" : "Create User";
   const toggleBtnText =
     authMode === "login" ? "Create a new user" : "Log in with existing user";
+
+  const naviation = useNavigation();
+  const isSubmitting = naviation.state !== "idle";
 
   return (
     <Form method="post" className="form" id="auth-form">
@@ -24,7 +27,9 @@ function AuthForm() {
         <input type="password" id="password" name="password" minLength={7} />
       </p>
       <div className="form-actions">
-        <button>{submitBtnText}</button>
+        <button disabled={isSubmitting}>
+          {isSubmitting ? "Authenticating..." : submitBtnText}
+        </button>
         <Link to={authMode === "login" ? "?mode=signup" : "?mode=login"}>
           {toggleBtnText}
         </Link>
