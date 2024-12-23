@@ -17,3 +17,29 @@
 Throwing a redirect() is not the same of returning a redirect. If we do that we don't trigger an ErrorBoundary (Catch boundary) but the user is simply redirected and cancels any function being called.
 
 This is important and can be used for example to logout an user on the authenticated part of your website by putting a protection on a loader. But be careful that any nested loader inside any nested page will be run in paralel to the loader that might be doing this control. Be careful when loading data with authentication control. Maybe it's better to add that protection to all loaders
+
+More information about it here:
+https://remix.run/docs/ja/main/utils/redirect
+
+# Metadata
+
+Metadata can be applied to the routes by exporting the remix specific funtion meta in each route. There are few examples of this in project but the best one is in \_app.expense.$id route
+
+More information about metadata here:
+https://remix.run/docs/ja/main/route/meta
+
+# Attaching Response Headers
+
+One way to set Response Headers is by going to entry.server and look for the place where a Header is already being set inside handleBrowserRequest and set your new Headers there. This is good when you want to set them globably. But when you want to set them locally (page-by-page) then you need an alternative.
+
+To add page specific headers you need to use the headers function. I did this in the \_app.tsx route by setting a caching control to 60 minutes.
+Just like the meta function this headers can be nested. But Remix doesn't automatically apply parent route headers when you have child routes. Remix looks for the deepest Headers set on the route and applies them, but you can use the arguments to access the parentHeaders and add them to your child route. Example of this in \_marketing.pricing.\_index route
+
+More information about it here:
+https://remix.run/docs/ja/main/route/headers
+
+## Loaders and Action Headers
+
+Loaders and Actions always return a response. And in this Headers can be present. Keep this in mind when implementing your Headers function
+
+# Disabling JavaScript

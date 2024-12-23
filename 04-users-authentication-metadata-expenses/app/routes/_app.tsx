@@ -14,3 +14,9 @@ export default function ExpensesAppLayout() {
 export function links() {
   return [{ rel: "stylesheet", href: expensesStyles }];
 }
+
+export function headers() {
+  return {
+    "Cache-Control": "max-age=3600", //60 minutes
+  };
+}

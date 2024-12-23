@@ -1,5 +1,5 @@
 import { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
-import { redirect, useNavigate } from "@remix-run/react";
+import { MetaFunction, redirect, useNavigate } from "@remix-run/react";
 import ExpenseForm from "~/components/expenses/ExpenseForm";
 import Modal from "~/components/util/Modal";
 import { deleteExpense, updateExpense } from "~/data/expenses.server";
@@ -55,3 +55,22 @@ export async function action({ params, request }: ActionFunctionArgs) {
     return redirect("..");
   }
 }
+
+export const meta: MetaFunction = ({ params, location, data, matches }) => {
+  const expenses: ExpenseProps[] = matches.find(
+    (match) => match.id === "routes/_app.expenses"
+  )?.data as [];
+
+  const expense = expenses.find(
+    (expense: ExpenseProps) => expense.id === params.id
+  );
+
+  return [
+    {
+      title: expense?.title,
+    },
+    {
+      description: "Update expense.",
+    },
+  ];
+};

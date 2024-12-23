@@ -1,6 +1,6 @@
 import { createCookieSessionStorage, redirect } from "@remix-run/node";
 import { prisma } from "./database.server";
-import * as bcrypt from "bcrypt";
+import * as bcrypt from "bcryptjs";
 
 const SESSION_SECRET = process.env.SESSION_SECRET || "";
 

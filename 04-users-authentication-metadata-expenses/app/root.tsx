@@ -11,6 +11,15 @@ import {
 
 import sharedStyles from "~/styles/shared.css?url";
 import ErrorBox from "./components/util/ErrorBox";
+import { MetaFunction } from "@remix-run/node";
+
+export const meta: MetaFunction = () => {
+  return [
+    { charset: "utf-8" },
+    { title: "Remix Expenses" },
+    { viewport: "width=device-width, initial-scale=1" },
+  ];
+};
 
 function Document({
   title,
@@ -22,9 +31,7 @@ function Document({
   return (
     <html lang="en">
       <head>
-        <title>{title}</title>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        {title && <title>{title}</title>}
         <Meta />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link

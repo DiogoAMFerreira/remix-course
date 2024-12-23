@@ -1,3 +1,4 @@
+import { HeadersArgs } from "@remix-run/node";
 import { FaTrophy, FaHandshake } from "react-icons/fa";
 import PricingPlan from "~/components/marketing/PricingPlan";
 
@@ -36,4 +37,25 @@ export default function PricingPage() {
       </ol>
     </main>
   );
+}
+
+export function meta() {
+  return [
+    {
+      title: "Pricing",
+    },
+    {
+      description: "See out pricing plans",
+    },
+  ];
+}
+
+export function headers({
+  actionHeaders,
+  loaderHeaders,
+  parentHeaders,
+}: HeadersArgs) {
+  return {
+    "Cache-Control": parentHeaders.get("Cache-Control"),
+  };
 }
