@@ -1,6 +1,7 @@
-import { ActionFunctionArgs } from "@remix-run/node";
+import { ActionFunctionArgs, redirect } from "@remix-run/node";
 import AuthForm from "~/components/auth/AuthForm";
-import { validateLoginInput } from "~/data/validation.server";
+import { login, signup } from "~/data/auth.server";
+import { validateCredentials } from "~/data/validation.server";
 import authStyles from "~/styles/auth.css?url";
 
 export default function AuthPage() {
@@ -13,19 +14,28 @@ export async function action({ request }: ActionFunctionArgs) {
 
   const formData = await request.formData();
 
+  const credentials = {
+    email: formData.get("email") as string,
+    password: formData.get("password") as string,
+  };
+
   try {
-    validateLoginInput({
-      email: formData.get("email") as string,
-      password: formData.get("password") as string,
-    });
+    validateCredentials(credentials);
   } catch (error) {
     return error;
   }
 
-  if (authMode === "login") {
-    // Login
-  } else {
-    // Signup
+  try {
+    if (authMode === "login") {
+      return await login(credentials);
+    } else {
+      // Signup
+      return await signup(credentials);
+    }
+  } catch (error: any) {
+    if (error.status === 422 || error.status === 401) {
+      return { credentials: error.message };
+    }
   }
 }
 

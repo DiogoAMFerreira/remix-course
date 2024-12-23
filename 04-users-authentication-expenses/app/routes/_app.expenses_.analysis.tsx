@@ -8,6 +8,8 @@ import {
 } from "@remix-run/react";
 import ExpenseProps from "~/interfaces/ExpenseProps";
 import ErrorBox from "~/components/util/ErrorBox";
+import { requireUserSession } from "~/data/auth.server";
+import { LoaderFunctionArgs } from "@remix-run/node";
 
 export default function ExpensesAnalysisPage() {
   const expenses: ExpenseProps[] = useLoaderData();
@@ -20,7 +22,9 @@ export default function ExpensesAnalysisPage() {
   );
 }
 
-export async function loader() {
+export async function loader({ request }: LoaderFunctionArgs) {
+  await requireUserSession(request);
+
   const expenses = await getExpenses();
   if (!expenses || expenses.length === 0) {
     throw Response.json(

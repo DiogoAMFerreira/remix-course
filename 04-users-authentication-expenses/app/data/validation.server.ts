@@ -40,25 +40,19 @@ function isValidEmail(value: string) {
 }
 
 function isValidPassword(value: string) {
-  return value && value.trim().length > 6;
+  return value && value.trim().length >= 7;
 }
 
-export function validateLoginInput({
-  email,
-  password,
-}: {
-  email: string;
-  password: string;
-}) {
+export function validateCredentials(input: any) {
   let validationErrors: Record<string, string> = {};
 
-  if (!isValidEmail(email)) {
-    validationErrors.email = "Invalid email address";
+  if (!isValidEmail(input.email)) {
+    validationErrors.email = "Invalid email address.";
   }
 
-  if (!isValidPassword(password)) {
+  if (!isValidPassword(input.password)) {
     validationErrors.password =
-      "Invalid password. Must be longer than 6 characters";
+      "Invalid password. Must be at least 7 characters long.";
   }
 
   if (Object.keys(validationErrors).length > 0) {
