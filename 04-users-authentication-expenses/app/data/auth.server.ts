@@ -29,6 +29,7 @@ export async function requireUserSession(request: any) {
     //Not logged in
     throw redirect("/auth?mode=login");
   }
+  return userId;
 }
 
 export async function destroyUserSession(request: any) {
