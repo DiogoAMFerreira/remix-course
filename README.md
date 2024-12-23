@@ -47,3 +47,17 @@ If you're interested in Remix v2:
 You find adjusted code snapshots for all course demos in the course GitHub folder. The v2 code can be found in folders named "ZZ V2-finished" inside the respective project folders (i.e., in the subfolders in the "Code" folder).
 
 For example, for this section, you find the v2 code here: https://github.com/academind/remix-practical-guide-course-resources/tree/main/Code/02%20Essentials/ZZ%20V2-finished
+
+# Deployment
+
+## Templates
+
+Remix has a few starter templates to help you deploy to various servers. Running npx create-remix@latest with the --template flag allows you to provide the URL to one of these templates, for example:
+
+```sh
+npx create-remix@latest --template remix-run/remix/templates/express
+```
+
+The list of templates can be found here: https://github.com/remix-run/remix/tree/main/templates
+
+If this no longer exists when you check this project then search for Remix Deployment since many of this templates disappeared since the moment the Course was created till the date I did it

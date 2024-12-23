@@ -6,6 +6,7 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useMatches,
   useRouteError,
 } from "@remix-run/react";
 
@@ -28,6 +29,10 @@ function Document({
   title?: string;
   children: React.ReactNode;
 }) {
+  const matches = useMatches();
+
+  const disableJS = matches.some((match: any) => match.handle?.disableJS);
+
   return (
     <html lang="en">
       <head>
@@ -48,7 +53,7 @@ function Document({
       <body>
         {children}
         <ScrollRestoration />
-        <Scripts />
+        {!disableJS && <Scripts />}
       </body>
     </html>
   );

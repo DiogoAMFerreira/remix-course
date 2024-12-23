@@ -42,4 +42,22 @@ https://remix.run/docs/ja/main/route/headers
 
 Loaders and Actions always return a response. And in this Headers can be present. Keep this in mind when implementing your Headers function
 
-# Disabling JavaScript
+# Handle constant
+
+One example of how to use this Handle constant is to avoid loading data that is not needed you can disable Javascript in some pages that are static.
+In the root.tsx you will see a Scripts tag that's responsible to download any Script files. If you remove it then no Scripts are loaded hence no Javascript is loaded. This isn't very usefull.
+
+There's a way to do it route-by-route. For that you need to export the constant handle with an object with a Key you defined. Then you can access it with the useMatches function to access to this data. Then you can look for it in the root route and disable the JS.
+
+Check the example in the project code
+
+More information about the handle constant and how to use it check here:
+https://remix.run/docs/ja/main/route/handle
+
+# Vite config
+
+For information on what options are available in vite config check here:
+https://vite.dev/config/server-options.html
+
+If you are still using the old remix configuration check it here:
+https://remix.run/docs/en/main/file-conventions/remix-config
